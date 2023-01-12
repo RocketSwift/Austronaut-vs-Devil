@@ -14,6 +14,10 @@
 		602F8E4B296DD33F00B0BCE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602F8E4A296DD33F00B0BCE6 /* Assets.xcassets */; };
 		602F8E4E296DD33F00B0BCE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 602F8E4C296DD33F00B0BCE6 /* LaunchScreen.storyboard */; };
 		602F8E55296DE29600B0BCE6 /* AustronautSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602F8E54296DE29600B0BCE6 /* AustronautSprite.swift */; };
+		60A3D7BA296F633B006C1896 /* AsteroidSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */; };
+		60DBD5132970686700E3D5D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DBD5122970686700E3D5D5 /* Constants.swift */; };
+		60DBD5152970881500E3D5D5 /* FireParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 60DBD5142970881500E3D5D5 /* FireParticle.sks */; };
+		60DBD51D2970958B00E3D5D5 /* Boom.sks in Resources */ = {isa = PBXBuildFile; fileRef = 60DBD51C2970958B00E3D5D5 /* Boom.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		602F8E4A296DD33F00B0BCE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		602F8E4D296DD33F00B0BCE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		602F8E54296DE29600B0BCE6 /* AustronautSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustronautSprite.swift; sourceTree = "<group>"; };
+		60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsteroidSprite.swift; sourceTree = "<group>"; };
+		60DBD5122970686700E3D5D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		60DBD5142970881500E3D5D5 /* FireParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticle.sks; sourceTree = "<group>"; };
+		60DBD51C2970958B00E3D5D5 /* Boom.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Boom.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +67,10 @@
 			children = (
 				602F8E3D296DD33E00B0BCE6 /* AppDelegate.swift */,
 				602F8E43296DD33E00B0BCE6 /* GameScene.swift */,
+				60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */,
+				60DBD5142970881500E3D5D5 /* FireParticle.sks */,
+				60DBD51C2970958B00E3D5D5 /* Boom.sks */,
+				60DBD5122970686700E3D5D5 /* Constants.swift */,
 				602F8E54296DE29600B0BCE6 /* AustronautSprite.swift */,
 				602F8E45296DD33E00B0BCE6 /* GameViewController.swift */,
 				602F8E47296DD33E00B0BCE6 /* Main.storyboard */,
@@ -127,7 +139,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				602F8E49296DD33E00B0BCE6 /* Main.storyboard in Resources */,
+				60DBD5152970881500E3D5D5 /* FireParticle.sks in Resources */,
 				602F8E4B296DD33F00B0BCE6 /* Assets.xcassets in Resources */,
+				60DBD51D2970958B00E3D5D5 /* Boom.sks in Resources */,
 				602F8E4E296DD33F00B0BCE6 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,10 +153,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60A3D7BA296F633B006C1896 /* AsteroidSprite.swift in Sources */,
 				602F8E44296DD33E00B0BCE6 /* GameScene.swift in Sources */,
 				602F8E46296DD33E00B0BCE6 /* GameViewController.swift in Sources */,
 				602F8E55296DE29600B0BCE6 /* AustronautSprite.swift in Sources */,
 				602F8E3E296DD33E00B0BCE6 /* AppDelegate.swift in Sources */,
+				60DBD5132970686700E3D5D5 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
