@@ -59,9 +59,7 @@ class GameScene: SKScene {
         self.addChild(austronautSprite)
         
         createFloor()
-        
-
-        
+    
     }
     
     @objc func tapped(_ sender: UITapGestureRecognizer) {
