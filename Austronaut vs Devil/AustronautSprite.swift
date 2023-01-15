@@ -24,6 +24,8 @@ class AustronautSprite: SKSpriteNode {
                                                       height: self.size.height))
         self.physicsBody?.mass = 1
         
+
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

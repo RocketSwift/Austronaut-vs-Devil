@@ -18,8 +18,14 @@ class GameScene: SKScene {
     var asteroid : AsteroidSprite!
     
     let cam = SKCameraNode()
-    
+
     override func didMove(to view: SKView) {
+        
+        camera = cam
+        cam.position.x = size.width / 2
+        cam.position.y = size.height / 2
+
+        self.addChild(cam)
         
         physicsWorld.contactDelegate = self
         
@@ -58,9 +64,14 @@ class GameScene: SKScene {
         
         self.addChild(austronautSprite)
         
+        
         createFloor()
+        
+
     
     }
+    
+
     
     @objc func tapped(_ sender: UITapGestureRecognizer) {
 
@@ -72,6 +83,7 @@ class GameScene: SKScene {
         switch sender.direction {
         case .left:
             austronautSprite.astroWalk(direction: "left")
+
         case .right:
             austronautSprite.astroWalk(direction: "right")
         case .up:
@@ -108,7 +120,8 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        //        cam.position = austronautSprite.position
+        camera?.position.x = austronautSprite.position.x
+        camera?.position.y = austronautSprite.position.y
         
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
@@ -130,7 +143,7 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
-        print("yes contact")
+//        print("yes contact")
                 
         if contact.bodyA.categoryBitMask == AsteroidCategory {
             let body = contact.bodyA
