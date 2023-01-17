@@ -17,14 +17,15 @@ class AustronautSprite: SKSpriteNode {
     
     init() {
         let texture = SKTexture(imageNamed: "astro_stand")
-        super.init(texture: texture, color: .clear, size: .init(width: 100, height: 100))
+        super.init(texture: texture, color: .clear, size: .init(width: 80, height: 80))
         
         self.physicsBody = SKPhysicsBody(texture: texture,
                                          size: CGSize(width: self.size.width,
                                                       height: self.size.height))
         self.physicsBody?.mass = 1
-        
-
+//        self.position = .init(x: frame.midX, y: frame.minY + 30)
+        self.zPosition = 10
+//        self.anchorPoint = .init(x: 0.5, y: 0.5)
         
     }
     

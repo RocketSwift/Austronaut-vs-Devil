@@ -16,7 +16,9 @@
 		602F8E4B296DD33F00B0BCE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 602F8E4A296DD33F00B0BCE6 /* Assets.xcassets */; };
 		602F8E4E296DD33F00B0BCE6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 602F8E4C296DD33F00B0BCE6 /* LaunchScreen.storyboard */; };
 		602F8E55296DE29600B0BCE6 /* AustronautSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602F8E54296DE29600B0BCE6 /* AustronautSprite.swift */; };
+		6069BD1E2975B52E001F28A8 /* HudNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6069BD1D2975B52E001F28A8 /* HudNode.swift */; };
 		60A3D7BA296F633B006C1896 /* AsteroidSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */; };
+		60C996B1297721DF0055A3CB /* DiamondSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60C996B0297721DF0055A3CB /* DiamondSprite.swift */; };
 		60DBD5132970686700E3D5D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60DBD5122970686700E3D5D5 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +33,9 @@
 		602F8E4A296DD33F00B0BCE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		602F8E4D296DD33F00B0BCE6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		602F8E54296DE29600B0BCE6 /* AustronautSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AustronautSprite.swift; sourceTree = "<group>"; };
+		6069BD1D2975B52E001F28A8 /* HudNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudNode.swift; sourceTree = "<group>"; };
 		60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsteroidSprite.swift; sourceTree = "<group>"; };
+		60C996B0297721DF0055A3CB /* DiamondSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiamondSprite.swift; sourceTree = "<group>"; };
 		60DBD5122970686700E3D5D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,7 +71,9 @@
 			children = (
 				602F8E3D296DD33E00B0BCE6 /* AppDelegate.swift */,
 				602F8E43296DD33E00B0BCE6 /* GameScene.swift */,
+				6069BD1D2975B52E001F28A8 /* HudNode.swift */,
 				60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */,
+				60C996B0297721DF0055A3CB /* DiamondSprite.swift */,
 				601C382F2972D697004F7079 /* FireParticle.sks */,
 				601C38312972D744004F7079 /* Boom.sks */,
 				60DBD5122970686700E3D5D5 /* Constants.swift */,
@@ -154,9 +160,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				60A3D7BA296F633B006C1896 /* AsteroidSprite.swift in Sources */,
+				60C996B1297721DF0055A3CB /* DiamondSprite.swift in Sources */,
 				602F8E44296DD33E00B0BCE6 /* GameScene.swift in Sources */,
 				602F8E46296DD33E00B0BCE6 /* GameViewController.swift in Sources */,
 				602F8E55296DE29600B0BCE6 /* AustronautSprite.swift in Sources */,
+				6069BD1E2975B52E001F28A8 /* HudNode.swift in Sources */,
 				602F8E3E296DD33E00B0BCE6 /* AppDelegate.swift in Sources */,
 				60DBD5132970686700E3D5D5 /* Constants.swift in Sources */,
 			);

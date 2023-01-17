@@ -17,9 +17,6 @@ public class AsteroidSprite : SKSpriteNode {
         asteroid.physicsBody?.categoryBitMask = AsteroidCategory
         asteroid.physicsBody?.contactTestBitMask = WorldFrameCategory | FloorCategory | AstronautCategory
         asteroid.zPosition = 1
-
-
-//        asteroid.physicsBody?.density = 0.5
         return asteroid
     }
 }
