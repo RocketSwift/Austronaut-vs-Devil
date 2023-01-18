@@ -5,8 +5,6 @@
 //  Created by Denys Zahorskyi on 10.01.2023.
 //
 
-
-
 import SpriteKit
 import GameplayKit
 
@@ -14,15 +12,18 @@ import GameplayKit
 class GameScene: SKScene {
     
     private var lastUpdateTime : TimeInterval = 0
-    private var currentAsteroidSpawnTime : TimeInterval = 0
-    private var asteroidSpawnRate : TimeInterval = 5000
+    private var currentObjectSpawnTime : TimeInterval = 0
+    private var objectSpawnRate : TimeInterval = 2000
     
+    var diamondsCount = 0
+
+    let spacing : CGFloat = 50
     
     var austronautSprite = AustronautSprite()
     var asteroid : AsteroidSprite!
     var diamond : DiamondSprite!
     
-    let cam = SKCameraNode()
+    private var cameraNode = SKCameraNode()
     
     lazy var floor : SKSpriteNode = {
         let floor = SKSpriteNode(imageNamed: "ground")
@@ -32,10 +33,9 @@ class GameScene: SKScene {
         floor.physicsBody = .init(rectangleOf: .init(width: 10000, height: 1))
         floor.physicsBody?.isDynamic = false
         floor.physicsBody?.categoryBitMask = FloorCategory
-        floor.physicsBody?.contactTestBitMask = WorldFrameCategory | AstronautCategory | AsteroidCategory
+        floor.physicsBody?.contactTestBitMask = AstronautCategory | AsteroidCategory
         return(floor)
     }()
-    
     
     lazy var moon : SKSpriteNode = {
         let moon = SKSpriteNode(imageNamed: "moon")
@@ -70,25 +70,45 @@ class GameScene: SKScene {
         }
     }
     
-    var scoreLabel : SKLabelNode!
+    lazy var scoreLabel : SKLabelNode = {
+        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
+        scoreLabel.text = "Score: \(score)"
+        scoreLabel.horizontalAlignmentMode = .right
+        scoreLabel.position = CGPoint(x: frame.midX, y: frame.maxY - spacing)
+        return scoreLabel
+    }()
+    
+    lazy var livesLabel : SKLabelNode = {
+        livesLabel = SKLabelNode(text: "❤️❤️❤️")
+        livesLabel.horizontalAlignmentMode = .left
+        livesLabel.position = CGPoint(x: frame.minX + spacing, y: frame.maxY - spacing)
+        return livesLabel
+    }()
+    
+//    var joystick = Joystick()
+
     
     override func didMove(to view: SKView) {
         
-        scoreLabel = SKLabelNode(fontNamed: "Chalkduster")
-        scoreLabel.text = "Score: \(score)"
-        scoreLabel.horizontalAlignmentMode = .center
-        // scoreLabel розташований дуже костильно, розташувати без костиля не виходить
-        scoreLabel.position.x = cam.frame.minX - 200
-        scoreLabel.position.y = cam.frame.minY + 110
-        cam.addChild(scoreLabel)
-
-        camera = cam
-
-        self.addChild(cam)
+        self.anchorPoint = .init(x: 0.5, y: 0.5)
         
+        cameraNode.position = CGPoint(x: frame.midX, y: frame.midY)
+        self.addChild(cameraNode)
+        camera = cameraNode
+    
+        [scoreLabel, livesLabel].forEach { sprite in
+            cameraNode.addChild(sprite)
+        }
+        
+//        joystick.position = CGPoint(x: frame.minX + spacing * 2, y: frame.minY + spacing * 2)
+        
+        [floor, austronautSprite, moon, mountain1, mountain2].forEach { sprite in
+            self.addChild(sprite)
+        }
+
         physicsWorld.contactDelegate = self
         
-        physicsWorld.gravity = CGVector(dx: 0, dy: -2.721)
+        physicsWorld.gravity = CGVector(dx: 0, dy: -1)
         
 //        var worldFrame = frame
 //        worldFrame.origin.x -= 100
@@ -112,31 +132,23 @@ class GameScene: SKScene {
         gestureRun.numberOfTapsRequired = 2
         view.addGestureRecognizer(gestureRun)
         
-        self.anchorPoint = .init(x: 0.5, y: 0.5)
-        
-
-        self.addChild(floor)
-        self.addChild(austronautSprite)
-        
-        addChild(moon)
-        addChild(mountain1)
-        addChild(mountain2)
-        
+        spawnDiamond()
+ 
     }
     
 
     @objc func tapped(_ sender: UITapGestureRecognizer) {
 
-            austronautSprite.jump()
+            austronautSprite.astroRun()
         }
 
     @objc func swiped(_ sender: UISwipeGestureRecognizer) {
         switch sender.direction {
         case .left:
             austronautSprite.astroWalk(direction: "left")
-            
+
             moon.run(SKAction.moveBy(x: -40, y: 0, duration: 2))
-            
+
             [mountain1, mountain2].forEach({$0.run(SKAction.moveBy(x: -60, y: 0, duration: 2))})
 
         case .right:
@@ -147,10 +159,21 @@ class GameScene: SKScene {
         case .up:
             austronautSprite.jump()
             moon.run(SKAction.moveBy(x: 40, y: 0, duration: 2))
-            
+
             [mountain1, mountain2].forEach({$0.run(SKAction.moveBy(x: 60, y: 0, duration: 2))})
         default:
             austronautSprite.jump()
+        }
+    }
+    
+    func spawnObject() {
+        let randomNumber = Int.random(in: 1...100)
+        if randomNumber <= 90 {
+            spawnAsteroid()
+        } else if randomNumber < 98 {
+            spawnDiamond()
+        } else if randomNumber < 100 {
+            spawnBonus()
         }
     }
     
@@ -170,22 +193,33 @@ class GameScene: SKScene {
     
     func spawnDiamond() {
         diamond = DiamondSprite.newInstance()
-        diamond.position.x = .random(in: 1...floor.size.width)
         diamond.anchorPoint = .init(x: 0, y: 0)
-
-        diamond.zRotation = .pi / 4
-        addChild(diamond)
+        diamond.position.x = .random(in: frame.minX...frame.maxX)
+        diamond.position.y = .random(in: frame.minY + 10...frame.minY + spacing * 5)
+        self.addChild(diamond)
+    }
+    
+    func spawnBonus() {
+        print ("bonus spawned")
+    }
+    
+    func decreaseLife() {
+        let currentLives = livesLabel.text?.count
+        if currentLives! > 0 {
+            livesLabel.text?.removeLast()
+        } else {
+            print ("game over!")
+        }
     }
 
     
     override func update(_ currentTime: TimeInterval) {
+        
+//        if joystick.velocity.x != 0 || joystick.velocity.y != 0 {
+//            austronautSprite.astroWalk(direction: "left")
+//            }
+
         camera?.position.x = austronautSprite.position.x
-        
-//        scoreLabel.position.x = (camera?.position.x)!
-//        scoreLabel.position.y = (camera?.position.y)!
-        
-//        camera?.position.y = austronautSprite.position.y
-//        background.position.x = (camera?.position.x)!
         
         if (self.lastUpdateTime == 0) {
             self.lastUpdateTime = currentTime
@@ -193,44 +227,72 @@ class GameScene: SKScene {
         
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
-        currentAsteroidSpawnTime += dt
+        currentObjectSpawnTime += dt
         
-        if currentAsteroidSpawnTime > asteroidSpawnRate {
-            currentAsteroidSpawnTime = 0
+        if currentObjectSpawnTime > objectSpawnRate {
+            currentObjectSpawnTime = 0
             
-            spawnAsteroid()
-            spawnDiamond()
+            spawnObject()
         }
+
+        
     }
-    
     
 }
 
 extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
-        score += 1
-                
+        
+        if contact.bodyA.categoryBitMask == AsteroidCategory || contact.bodyB.categoryBitMask == AsteroidCategory {
+            handleAsteroidHit(contact: contact)
+        }
+        if contact.bodyA.categoryBitMask == DiamondCategory || contact.bodyB.categoryBitMask == DiamondCategory {
+            handleDiamondContact(contact: contact)
+        }
+        
+    }
+    
+    func handleAsteroidHit(contact: SKPhysicsContact) {
+        var otherBody : SKPhysicsBody
+        var asteroidBody : SKPhysicsBody
+        
         if contact.bodyA.categoryBitMask == AsteroidCategory {
-            let body = contact.bodyA
-            body.node?.removeFromParentWithParticles()
-//            score += 1
-        } else if contact.bodyB.categoryBitMask == AsteroidCategory {
-            let body = contact.bodyB
-            body.node?.removeFromParentWithParticles()
-//            let node = body.node
-//            let bonus = node as? SKSpriteNode
-//            node?.removeFromParentWithParticles()
-//            score += 1
-//        }
-//
-//        if contact.bodyA.categoryBitMask == BitMasks.enemy {
-//            fatalError()
-//        } else if contact.bodyB.categoryBitMask == BitMasks.enemy {
-//            fatalError()
+            otherBody = contact.bodyB
+            asteroidBody = contact.bodyA
+        } else {
+            otherBody = contact.bodyA
+            asteroidBody = contact.bodyB
+        }
+        
+        if otherBody.categoryBitMask == AstronautCategory {
+            decreaseLife()
+            asteroidBody.node?.removeFromParentWithParticles()
+        } else {
+            asteroidBody.node?.removeFromParentWithParticles()
+        }
+    }
+    
+    func handleDiamondContact(contact: SKPhysicsContact) {
+        var otherBody : SKPhysicsBody
+        var diamondBody : SKPhysicsBody
+        
+        if contact.bodyA.categoryBitMask == DiamondCategory {
+            otherBody = contact.bodyB
+            diamondBody = contact.bodyA
+        } else {
+            otherBody = contact.bodyA
+            diamondBody = contact.bodyB
+        }
+        
+        if otherBody.categoryBitMask == AstronautCategory {
+            diamondBody.node?.removeFromParent()
+            score += 1
+
         }
     }
 }
+
 
 extension SKNode {
     func removeFromParentWithParticles(particlesName: String = "Boom") {

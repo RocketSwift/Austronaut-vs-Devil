@@ -10,10 +10,13 @@ import GameplayKit
 
 class AustronautSprite: SKSpriteNode {
     
-    let movingSpeed : CGFloat = 80
+    let movingSpeed : CGFloat = 100
     
     let walkTextures : [SKTexture] = [SKTexture(imageNamed: "astro_walk_one"),
                                       SKTexture(imageNamed: "astro_walk_two")]
+    
+    let runTextures : [SKTexture] = [SKTexture(imageNamed: "astro_run_one"),
+                                      SKTexture(imageNamed: "astro_run_two")]
     
     init() {
         let texture = SKTexture(imageNamed: "astro_stand")
@@ -23,9 +26,10 @@ class AustronautSprite: SKSpriteNode {
                                          size: CGSize(width: self.size.width,
                                                       height: self.size.height))
         self.physicsBody?.mass = 1
-//        self.position = .init(x: frame.midX, y: frame.minY + 30)
         self.zPosition = 10
-//        self.anchorPoint = .init(x: 0.5, y: 0.5)
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.categoryBitMask = AstronautCategory
+        self.physicsBody?.contactTestBitMask = FloorCategory | AsteroidCategory | DiamondCategory
         
     }
     
@@ -34,39 +38,71 @@ class AustronautSprite: SKSpriteNode {
     }
     
     func astroWalk(direction: String){
-        
-        if self.action(forKey: "walk action") != nil{
-            self.removeAction(forKey: "walk action")
-        }
-        
-        if direction == "right"{
-            let walkAction = SKAction.group([
-                .repeat(.animate(with: walkTextures, timePerFrame: 0.4, resize: false, restore: true), count: 3),
-                .moveBy(x: movingSpeed, y: 0, duration: 2)
-            ])
-            run(walkAction, withKey: "walk action")
-            xScale = 1
-        } else {
-            let walkAction = SKAction.group([
-                .repeat(.animate(with: walkTextures, timePerFrame: 0.4, resize: false, restore: true), count: 3),
-                .moveBy(x: -movingSpeed, y: 0, duration: 2)
-            ])
-            run(walkAction, withKey: "walk action")
-            xScale = -1
+        if self.physicsBody?.velocity.dy == 0.0 {
+            
+            if self.hasActions() {
+                self.removeAllActions()
+            }
+            
+            if direction == "right"{
+                let walkAction = SKAction.group([
+                    .repeat(.animate(with: walkTextures, timePerFrame: 0.4, resize: false, restore: true), count: 3),
+                    .moveBy(x: movingSpeed, y: 0, duration: 1.5)
+                ])
+                run(walkAction, withKey: "walk action")
+                xScale = 1
+            } else {
+                let walkAction = SKAction.group([
+                    .repeat(.animate(with: walkTextures, timePerFrame: 0.4, resize: false, restore: true), count: 3),
+                    .moveBy(x: -movingSpeed, y: 0, duration: 1.5)
+                ])
+                run(walkAction, withKey: "walk action")
+                xScale = -1
+            }
         }
         
     }
     
     func jump() {
-        self.physicsBody?.applyImpulse(.init(dx: 80, dy: 300))
         
+        if self.physicsBody?.velocity.dy == 0.0 {
+            if self.hasActions() {
+                self.removeAllActions()
+            }
+            if self.xScale == 1 {
+                self.physicsBody?.applyImpulse(.init(dx: 80, dy: 250))
+            } else {
+                self.physicsBody?.applyImpulse(.init(dx: -80, dy: 250))
+            }
+        }
     }
     
+    func astroRun() {
+        if self.physicsBody?.velocity.dy == 0.0 {
+            if self.hasActions() {
+                self.removeAllActions()
+            }
+            if self.xScale == 1 {
+                let runAction = SKAction.group([
+                    .repeat(.animate(with: runTextures, timePerFrame: 0.3, resize: false, restore: true), count: 3),
+                    .moveBy(x: movingSpeed * 2, y: 0, duration: 1.5)
+                ])
+                run(runAction, withKey: "run action")
+            } else {
+                let runAction = SKAction.group([
+                    .repeat(.animate(with: runTextures, timePerFrame: 0.3, resize: false, restore: true), count: 3),
+                    .moveBy(x: -movingSpeed * 2, y: 0, duration: 1.5)
+                ])
+                run(runAction, withKey: "run action")
+            }
+        }
+    }
+    
+    
+
     public func update() {
         
-        if zRotation != 0 && action(forKey: "action_rotate") == nil {
-            run(SKAction.rotate(toAngle: 0, duration: 0.25), withKey: "action_rotate")
-        }
+        
     }
     
 }

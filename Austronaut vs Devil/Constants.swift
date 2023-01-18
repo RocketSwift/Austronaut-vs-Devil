@@ -10,6 +10,6 @@ import Foundation
 let AstronautCategory   : UInt32 = 0x1 << 1
 let FloorCategory      : UInt32 = 0x1 << 2
 let AsteroidCategory   : UInt32 = 0x1 << 3
-let WorldFrameCategory : UInt32 = 0x1 << 4
+let DiamondCategory : UInt32 = 0x1 << 4
 let DevilCategory : UInt32 = 0x1 << 5
-let DiamondCategory : UInt32 = 0x1 << 6
+

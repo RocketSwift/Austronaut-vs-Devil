@@ -15,7 +15,7 @@ public class AsteroidSprite : SKSpriteNode {
         let asteroid = AsteroidSprite(texture: texture, size: .init(width: 15, height: 15))
         asteroid.physicsBody = SKPhysicsBody(rectangleOf: asteroid.size)
         asteroid.physicsBody?.categoryBitMask = AsteroidCategory
-        asteroid.physicsBody?.contactTestBitMask = WorldFrameCategory | FloorCategory | AstronautCategory
+        asteroid.physicsBody?.contactTestBitMask = DiamondCategory | FloorCategory | AstronautCategory
         asteroid.zPosition = 1
         return asteroid
     }

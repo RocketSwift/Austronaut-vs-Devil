@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6015CDB1297888A7009EA494 /* JoyStick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6015CDB0297888A7009EA494 /* JoyStick.swift */; };
 		601C38302972D697004F7079 /* FireParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 601C382F2972D697004F7079 /* FireParticle.sks */; };
 		601C38322972D744004F7079 /* Boom.sks in Resources */ = {isa = PBXBuildFile; fileRef = 601C38312972D744004F7079 /* Boom.sks */; };
 		602F8E3E296DD33E00B0BCE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602F8E3D296DD33E00B0BCE6 /* AppDelegate.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6015CDB0297888A7009EA494 /* JoyStick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoyStick.swift; sourceTree = "<group>"; };
 		601C382F2972D697004F7079 /* FireParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticle.sks; sourceTree = "<group>"; };
 		601C38312972D744004F7079 /* Boom.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Boom.sks; sourceTree = "<group>"; };
 		602F8E3A296DD33E00B0BCE6 /* Austronaut vs Devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Austronaut vs Devil.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,6 +73,7 @@
 			children = (
 				602F8E3D296DD33E00B0BCE6 /* AppDelegate.swift */,
 				602F8E43296DD33E00B0BCE6 /* GameScene.swift */,
+				6015CDB0297888A7009EA494 /* JoyStick.swift */,
 				6069BD1D2975B52E001F28A8 /* HudNode.swift */,
 				60A3D7B9296F633B006C1896 /* AsteroidSprite.swift */,
 				60C996B0297721DF0055A3CB /* DiamondSprite.swift */,
@@ -161,6 +164,7 @@
 			files = (
 				60A3D7BA296F633B006C1896 /* AsteroidSprite.swift in Sources */,
 				60C996B1297721DF0055A3CB /* DiamondSprite.swift in Sources */,
+				6015CDB1297888A7009EA494 /* JoyStick.swift in Sources */,
 				602F8E44296DD33E00B0BCE6 /* GameScene.swift in Sources */,
 				602F8E46296DD33E00B0BCE6 /* GameViewController.swift in Sources */,
 				602F8E55296DE29600B0BCE6 /* AustronautSprite.swift in Sources */,

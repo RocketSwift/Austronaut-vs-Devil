@@ -15,8 +15,8 @@ public class DiamondSprite : SKSpriteNode {
         let diamond = DiamondSprite(texture: texture, size: .init(width: 30, height: 30))
         diamond.physicsBody = SKPhysicsBody(rectangleOf: diamond.size)
         diamond.physicsBody?.categoryBitMask = DiamondCategory
-
-        diamond.physicsBody?.contactTestBitMask = WorldFrameCategory | FloorCategory | AstronautCategory
+        diamond.physicsBody?.isDynamic = false
+        diamond.physicsBody?.contactTestBitMask = AsteroidCategory | FloorCategory | AstronautCategory
         diamond.zPosition = 1
   
         return diamond
